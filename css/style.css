@@ -2,3 +2,6 @@ body {
 	margin-top:50px;
 	margin-left:50px;
 }
+
+#grid { width:700px; }
+.griditem { padding:7px;border-width:1px;border-style:solid;float:left; }
