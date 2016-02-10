@@ -3,5 +3,5 @@ body {
 	margin-left:50px;
 }
 
-#grid { width:700px; }
+#grid { margin-top:40px;width:87%; }
 .griditem { padding:7px;border-width:1px;border-style:solid;float:left; }
