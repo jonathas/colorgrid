@@ -1,7 +1,5 @@
-body {
-	margin-top:50px;
-	margin-left:50px;
-}
-
-#grid { margin-top:40px;width:87%; }
+body {	margin-top:50px;margin-left:50px;font-size:18px; }
+#grid { margin-top:40px;width:80%; }
 .griditem { padding:7px;border-width:1px;border-style:solid;float:left; }
+#copied-color { margin-top:20px; }
+#copied-color #color { padding:7px;width:30px;height:30px;border-width:1px;border-style:solid;float:left;margin-right:12px;  }
