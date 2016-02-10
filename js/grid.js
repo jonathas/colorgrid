@@ -4,6 +4,7 @@ var actionHistory = [];
 function generateGrid() {
 	var numSquares = 2030;
 	var randomSquare = 0;
+	var gridItem = "";
 
 	$('#grid').html('');
 
@@ -11,8 +12,9 @@ function generateGrid() {
   		$('#grid').append('<div class="griditem"' + 'id="griditem_' + i +'">' + '</div>');
 
   		randomSquare = Math.floor(Math.random() * numSquares);
+  		gridItem = 'griditem_' + randomSquare + 20;
 
-  		$('#griditem_' + randomSquare + 20).css('background-color', randomColor());
+  		$('#' + gridItem).css('background-color', randomColor()).attr('original', true);
 	}
 	
 }
@@ -41,6 +43,12 @@ function undoColorGridItem() {
 	}
 
 	var last = actionHistory[actionHistory.length-1];
+
+	var original = $('#' + last.id).attr('original');
+	
+	if(original) {
+		return;
+	}
 
 	$('#' + last.id).css('background-color', '');
 	actionHistory.pop();
