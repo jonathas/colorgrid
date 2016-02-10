@@ -12,6 +12,21 @@ function generateGrid() {
 	
 }
 
+function pickColor(element) {
+	var attr = $(element.target).attr("style");
+
+	if (typeof attr !== typeof undefined && attr !== false) {
+	    var color = attr.split(":").slice(1).toString().replace(/\;|\s/g,"");
+		$('#color').css('background-color', color);
+	} else {
+		$('#color').css('background-color', '');
+	}		
+}
+
 $(document).ready(function() {
 	generateGrid();
+
+	$('.griditem').click(function(e) {
+		pickColor(e);
+	});
 });
