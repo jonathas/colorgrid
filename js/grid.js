@@ -42,16 +42,14 @@ function undoColorGridItem() {
 		return;
 	}
 
-	var last = actionHistory[actionHistory.length-1];
+	var last = actionHistory.pop();
 
-	var original = $('#' + last.id).attr('original');
-	
-	if(original) {
+	if($('#' + last.id).attr('original')) {
+		undoColorGridItem();
 		return;
 	}
 
 	$('#' + last.id).css('background-color', '');
-	actionHistory.pop();
 }
 
 $(document).ready(function() {
