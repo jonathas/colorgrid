@@ -2,7 +2,7 @@ var numSquares = 2030;
 var selectedColor = "";
 var actionHistory = [];
 var gamePoints = 0;
-var clock = [0,0];
+var clock = {minutes:0, seconds:0};
 
 function generateGrid() {
 	$('#grid').html('');
@@ -119,15 +119,15 @@ function setGamePoints(action) {
 }
 
 function tickTheClock() {
-	if(clock[1] < 59) {
-		clock[1]++;
-	} else if(clock[1] == 59) {
-		clock[1] = 0;
-		clock[0]++;
+	if(clock.seconds < 59) {
+		clock.seconds++;
+	} else if(clock.seconds == 59) {
+		clock.seconds = 0;
+		clock.minutes++;
 	}
 
-	var minutes = (clock[0] < 10) ? "0" + clock[0] : clock[0];
-	var seconds = (clock[1] < 10) ? "0" + clock[1] : clock[1];
+	var minutes = (clock.minutes < 10) ? "0" + clock.minutes : clock.minutes;
+	var seconds = (clock.seconds < 10) ? "0" + clock.seconds : clock.seconds;
 
 	$('#time').text(minutes + ":" + seconds);
 }
