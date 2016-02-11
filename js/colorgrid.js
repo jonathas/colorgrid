@@ -2,10 +2,10 @@ var numSquares = 2030;
 var selectedColor = "";
 var actionHistory = [];
 var gamePoints = 0;
+var clock = [0,0];
 
 function generateGrid() {
 	$('#grid').html('');
-	setGamePoints();
 
 	for(var i = 0; i < numSquares; i++) {
   		$('#grid').append('<div class="griditem"' + 'id="griditem_' + i +'">' + '</div>');
@@ -65,7 +65,7 @@ function setColorGridItem(element) {
 	}
 
 	if(!$('#' + id).attr('original')) {
-		setGamePoints('add');
+		setGamePoints();
 	}
 
 	$('#' + id).css('background-color', selectedColor);
@@ -109,15 +109,30 @@ function undoColorGridItem() {
 function setGamePoints(action) {
 	if(action === 'sub') {
 		(gamePoints > 0) ? gamePoints-- : null;
-	} else if(action === 'add') {
+	} else {
 		gamePoints++;
 	}
 
 	$('#points').text(gamePoints);
 }
 
+function tickTheClock() {
+	if(clock[1] < 59) {
+		clock[1]++;
+	} else if(clock[1] == 59) {
+		clock[1] = 0;
+		clock[0]++;
+	}
+
+	var minutes = (clock[0] < 10) ? "0" + clock[0] : clock[0];
+	var seconds = (clock[1] < 10) ? "0" + clock[1] : clock[1];
+
+	$('#time').text(minutes + ":" + seconds);
+}
+
 $(document).ready(function() {
 	generateGrid();
+	window.setInterval(tickTheClock, 1000);
 
 	$('.griditem').click(function(e) {
 		pickColor(e);
