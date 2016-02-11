@@ -97,8 +97,6 @@ function undoColorGridItem() {
 	}
 
 	var last = actionHistory.pop();
-	setGamePoints('sub');
-	$('#' + last.id).attr('colored', false);
 
 	if($('#' + last.id).attr('original')) {
 		undoColorGridItem();
@@ -106,6 +104,8 @@ function undoColorGridItem() {
 	}
 
 	$('#' + last.id).css('background-color', '');
+	$('#' + last.id).attr('colored', false);
+	setGamePoints('sub');
 }
 
 function setGamePoints(action) {
