@@ -46,11 +46,11 @@ function extractColor(styleAttr) {
 }
 
 function setColorGridItem(element) {
-	if(selectedColor === "") {
-		return;
-	} 
-
 	var id = element.target.id;
+
+	if(selectedColor === "" || $('#' + id).attr('colored') == "true") {
+		return;
+	}
 
 	//Can I color it?
 	var neighbors = getGridItemNeighbors(element);
@@ -64,13 +64,14 @@ function setColorGridItem(element) {
 	    }
 	}
 
-	if(!$('#' + id).attr('original')) {
-		setGamePoints();
-	}
-
 	$('#' + id).css('background-color', selectedColor);
+	$('#' + id).attr('colored', true);
 
 	actionHistory.push({id:id,color:selectedColor});
+
+	if(!$('#' + id).attr('original') && $('#' + id).attr('colored') == "true") {
+		setGamePoints();
+	}
 }
 
 function getGridItemNeighbors(element) {
@@ -97,6 +98,7 @@ function undoColorGridItem() {
 
 	var last = actionHistory.pop();
 	setGamePoints('sub');
+	$('#' + last.id).attr('colored', false);
 
 	if($('#' + last.id).attr('original')) {
 		undoColorGridItem();
