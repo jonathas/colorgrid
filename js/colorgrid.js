@@ -1,22 +1,29 @@
 var numSquares = 2030;
 var selectedColor = "";
 var actionHistory = [];
+var gamePoints = 0;
 
 function generateGrid() {
-	var randomSquare = 0;
-	var gridItem = "";
-
 	$('#grid').html('');
+	setGamePoints();
 
 	for(var i = 0; i < numSquares; i++) {
   		$('#grid').append('<div class="griditem"' + 'id="griditem_' + i +'">' + '</div>');
-
-  		randomSquare = Math.floor(Math.random() * numSquares);
-  		gridItem = 'griditem_' + randomSquare + 20;
-
-  		$('#' + gridItem).css('background-color', randomColor()).attr('original', true);
 	}
-	
+
+	randomlyFillGrid();
+}
+
+function randomlyFillGrid() {
+	var randomSquare = 0;
+	var gridItem = "";
+
+	for(var i = 0; i < numSquares; i++) {
+		randomSquare = Math.floor(Math.random() * numSquares);
+		gridItem = 'griditem_' + randomSquare + 20;
+
+		$('#' + gridItem).css('background-color', randomColor()).attr('original', true);
+	}
 }
 
 function pickColor(element) {
@@ -27,7 +34,7 @@ function pickColor(element) {
     	$('#color').css('background-color', selectedColor);
 	}    
 
-	colorGridItem(element);
+	setColorGridItem(element);
 }
 
 function extractColor(styleAttr) {
@@ -38,7 +45,11 @@ function extractColor(styleAttr) {
 	return undefined;
 }
 
-function colorGridItem(element) {
+function setColorGridItem(element) {
+	if(selectedColor === "") {
+		return;
+	} 
+
 	var id = element.target.id;
 
 	//Can I color it?
@@ -51,6 +62,10 @@ function colorGridItem(element) {
 	    		return;
 	    	}
 	    }
+	}
+
+	if(!$('#' + id).attr('original')) {
+		setGamePoints('add');
 	}
 
 	$('#' + id).css('background-color', selectedColor);
@@ -81,6 +96,7 @@ function undoColorGridItem() {
 	}
 
 	var last = actionHistory.pop();
+	setGamePoints('sub');
 
 	if($('#' + last.id).attr('original')) {
 		undoColorGridItem();
@@ -88,6 +104,16 @@ function undoColorGridItem() {
 	}
 
 	$('#' + last.id).css('background-color', '');
+}
+
+function setGamePoints(action) {
+	if(action === 'sub') {
+		(gamePoints > 0) ? gamePoints-- : null;
+	} else if(action === 'add') {
+		gamePoints++;
+	}
+
+	$('#points').text(gamePoints);
 }
 
 $(document).ready(function() {
