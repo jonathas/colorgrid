@@ -1,5 +1,7 @@
 # ColorGrid
 
+![alt text](https://github.com/jonathas/colorgrid/blob/master/grid.png "Grid")
+
 - Application renders the grid of similar size (e.g. 70x50) as displayed on the picture
 - The grid squares are randomly filled with colors
 - When user clicks on the filled square he/she copies its color (it is similar function like e.g. color picker tool in Gimp)
